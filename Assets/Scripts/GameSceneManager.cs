@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Mainmenu : MonoBehaviour
+public class GameSceneManager : MonoBehaviour
 {
     public void PlayGame()
     {
@@ -10,6 +10,10 @@ public class Mainmenu : MonoBehaviour
     public void BackToMainmenu()
     {
         SceneManager.LoadScene("Mainmenu Scene");
+    }
+    public void LoadMiniGame()
+    {
+        SceneManager.LoadScene("Minigame Scene");
     }
     public void Quit()
     {
