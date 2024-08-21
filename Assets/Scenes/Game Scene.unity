@@ -3305,6 +3305,8 @@ GameObject:
   - component: {fileID: 1485147454}
   - component: {fileID: 1485147453}
   - component: {fileID: 1485147457}
+  - component: {fileID: 1485147458}
+  - component: {fileID: 1485147459}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -3353,7 +3355,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1053031347, guid: c7a0ca0700b2e394e8bc0fc423045533, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3361,7 +3363,7 @@ SpriteRenderer:
   m_Size: {x: 5.16, y: 5.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1485147454
@@ -3397,6 +3399,47 @@ MonoBehaviour:
   sliderMood: {fileID: 1394307284}
   sliderStamina: {fileID: 1712791757}
   textMeshProUGUI: {fileID: 547358202}
+--- !u!95 &1485147458
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485147452}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1485147459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485147452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cce3a0bd1204745a46aa75b5374300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cat:
+  - Evo:
+    - {fileID: 9100000, guid: 572449bae84884e4a948fdc7cc9cf802, type: 2}
+    - {fileID: 9100000, guid: 87c958a310c3a024ca063b115502d8de, type: 2}
+  - Evo:
+    - {fileID: 9100000, guid: 323b04ff1f9848b4aa6d324b11e2160b, type: 2}
+    - {fileID: 9100000, guid: 14b66135865e21d408a3154d7cf13315, type: 2}
+    - {fileID: 9100000, guid: dee2faf56955bb74ea5fda9caa55aca2, type: 2}
 --- !u!1 &1619589624
 GameObject:
   m_ObjectHideFlags: 0
