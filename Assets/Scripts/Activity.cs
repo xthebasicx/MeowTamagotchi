@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Activity : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class Activity : MonoBehaviour
             status.ChangeMood(3);
             status.ChangeFood(-2);
             status.ChangeStamina(-1);
+            status.SaveStatus();
+            SceneManager.LoadScene("Minigame Scene");
         }
     }
     public void Sleep()

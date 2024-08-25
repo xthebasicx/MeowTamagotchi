@@ -1,42 +1,51 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CatHole : MonoBehaviour
 {
-    public float appearTime = 1.0f;
-    private bool isVisible = false;
-    private float timer = 0f;
-    private SpriteRenderer spriteRenderer;
+    public float minTimeToPop = 0.5f;
+    public float maxTimeToPop = 2.0f;
+    public float minTimeToHide = 0.5f;
+    public float maxTimeToHide = 2.0f;
+
+    private bool isPoppedUp = false;
+    private Image CatImage;
+    private Score score;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        CatImage = GetComponent<Image>();
+        CatImage.enabled = false;
+        score = FindObjectOfType<Score>();
+        Invoke("Show", Random.Range(minTimeToPop, maxTimeToPop));
     }
 
-    void Update()
+    void Show()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= appearTime)
+        if (!isPoppedUp)
         {
-            isVisible = !isVisible;
-            spriteRenderer.enabled = isVisible;
-            timer = 0f;
-        }
-
-        if (isVisible && Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (GetComponent<Collider2D>().OverlapPoint(mousePos))
-            {
-                Hit();
-            }
+            CatImage.enabled = true;
+            isPoppedUp = true;
+            Invoke("Hide", Random.Range(minTimeToHide, maxTimeToHide));
         }
     }
 
-    void Hit()
+    void Hide()
     {
-        Debug.Log("Hit!");
-        isVisible = false;
-        spriteRenderer.enabled = false;
+        CatImage.enabled = false;
+        isPoppedUp = false;
+        Invoke("Show", Random.Range(minTimeToPop, maxTimeToPop));
+    }
+
+    void OnMouseDown()
+    {
+        if (isPoppedUp)
+        {
+            CatImage.enabled = false;
+            isPoppedUp = false;
+            score.AddScore(1);
+            CancelInvoke();
+            Invoke("Show", Random.Range(minTimeToPop, maxTimeToPop));
+        }
     }
 }

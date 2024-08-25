@@ -10,6 +10,8 @@ public class Status : MonoBehaviour
     public Slider sliderMood;
     public Slider sliderStamina;
     public TextMeshProUGUI textMeshProUGUI;
+    public GameObject EvoButton;
+    public static bool isButtonPressed = false;
 
     public int maxHealth { get; private set; } = 10;
     public int maxFood { get; private set; } = 10;
@@ -27,9 +29,15 @@ public class Status : MonoBehaviour
 
     public void Start()
     {
+        LoadStatus();
         SetMaxStatus();
         SetStatus();
     }
+    void Update()
+    {
+        Evolution();
+    }
+
 
     public void ChangeHealth(int amount)
     {
@@ -60,6 +68,18 @@ public class Status : MonoBehaviour
     {
         Day += amount;
     }
+    public void Evolution()
+    {
+        if (Day >= 10 && !isButtonPressed)
+        {
+            EvoButton.SetActive(true);
+        }
+    }
+    public void CloseButton()
+    {
+        EvoButton.SetActive(false);
+        isButtonPressed = true;
+    }
     public void SetMaxStatus()
     {
         sliderHealth.maxValue = maxHealth;
@@ -77,4 +97,25 @@ public class Status : MonoBehaviour
         sliderStamina.value = currentStamina;
         textMeshProUGUI.text = "Day " + Day;
     }
+    public void SaveStatus()
+    {
+        PlayerPrefs.SetInt("Health", currentHealth);
+        PlayerPrefs.SetInt("Food", currentFood);
+        PlayerPrefs.SetInt("Shower", currentShower);
+        PlayerPrefs.SetInt("Mood", currentMood);
+        PlayerPrefs.SetInt("Stamina", currentStamina);
+        PlayerPrefs.SetInt("Day", Day);
+        PlayerPrefs.Save();
+    }
+    public void LoadStatus()
+    {
+        currentHealth = PlayerPrefs.GetInt("Health", 5);
+        currentFood = PlayerPrefs.GetInt("Food", 5);
+        currentShower = PlayerPrefs.GetInt("Shower", 5);
+        currentMood = PlayerPrefs.GetInt("Mood", 5);
+        currentStamina = PlayerPrefs.GetInt("Stamina", 2);
+        Day = PlayerPrefs.GetInt("Day", 1);
+        SetStatus();
+    }
+
 }
