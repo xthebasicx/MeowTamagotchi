@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Activity : MonoBehaviour
 {
     public Status status;
+    public Animator transition;
+    public GameObject SceneUI;
     public void Snack()
     {
         status.ChangeFood(1);
@@ -46,7 +49,7 @@ public class Activity : MonoBehaviour
             status.ChangeFood(-2);
             status.ChangeStamina(-1);
             status.SaveStatus();
-            SceneManager.LoadScene("Minigame Scene");
+            StartCoroutine(Transition());
         }
     }
     public void Sleep()
@@ -84,5 +87,11 @@ public class Activity : MonoBehaviour
         status.ChangeShower(showerChange);
         status.ChangeFood(foodChange);
         status.ChangeMood(moodChange);
+    }
+    IEnumerator Transition(){
+        SceneUI.SetActive(true);
+        transition.SetTrigger("End");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Minigame Scene");
     }
 }

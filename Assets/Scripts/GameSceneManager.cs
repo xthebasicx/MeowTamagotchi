@@ -3,22 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-    public Status status;
+    public SceneTransition sceneTransition;
     public void PlayGame()
     {
-        SceneManager.LoadScene("SelectCat Scene");
         PlayerPrefs.DeleteAll();
         Status.isButtonPressed = false;
+        StartCoroutine(sceneTransition.TransitionEnd("SelectCat Scene"));
 
     }
     public void BackToMainmenu()
     {
-        SceneManager.LoadScene("Mainmenu Scene");
-    }
-
-    public void BackToGame()
-    {
-        SceneManager.LoadScene("Game Scene");
+        StartCoroutine(sceneTransition.TransitionEnd("Mainmenu Scene"));
     }
     public void Quit()
     {

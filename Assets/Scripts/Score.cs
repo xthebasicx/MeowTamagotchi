@@ -1,11 +1,10 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public SceneTransition sceneTransition;
     private int score = 0;
 
     void Start()
@@ -25,13 +24,13 @@ public class Score : MonoBehaviour
 
     void UpdateScoreText()
     {
-        scoreText.text = score.ToString() + "/10 ";
+        scoreText.text = score.ToString() + "/5";
     }
     void EndGame()
     {
-        if (score == 10)
+        if (score == 5)
         {
-            SceneManager.LoadSceneAsync("Game Scene");
+            StartCoroutine(sceneTransition.TransitionEnd("Game Scene"));
         }
     }
 }

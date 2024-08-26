@@ -38,7 +38,6 @@ public class Status : MonoBehaviour
         Evolution();
     }
 
-
     public void ChangeHealth(int amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
