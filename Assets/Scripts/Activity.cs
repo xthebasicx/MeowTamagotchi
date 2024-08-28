@@ -5,29 +5,42 @@ using UnityEngine.SceneManagement;
 public class Activity : MonoBehaviour
 {
     public Status status;
-    public Animator transition;
-    public GameObject SceneUI;
+    public SceneTransition sceneTransition;
+    private Animator playerAnimator;
+    private AudioManager audioManager;
+    public void Start(){
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerAnimator = player.GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     public void Snack()
     {
+        playerAnimator.SetTrigger("Eat");
         status.ChangeFood(1);
         status.ChangeHealth(-1);
         status.ChangeMood(1);
+        audioManager.PlayVoice(audioManager.eat);
     }
     public void HealthyFood()
     {
+        playerAnimator.SetTrigger("Eat");
         status.ChangeFood(2);
         status.ChangeHealth(1);
+        audioManager.PlayVoice(audioManager.eat);
     }
     public void Medicine()
     {
         if (status.currentHealth <= 3)
         {
+            playerAnimator.SetTrigger("Eat");
             status.ChangeHealth(1);
             status.ChangeMood(-1);
+            audioManager.PlayVoice(audioManager.eat);
         }
     }
     public void Shower()
     {
+        playerAnimator.SetTrigger("Shower");
         status.ChangeMood(-2);
         status.ChangeShower(2);
     }
@@ -35,12 +48,12 @@ public class Activity : MonoBehaviour
     {
         if (status.currentStamina > 0)
         {
+            playerAnimator.SetTrigger("Exercise");
             status.ChangeHealth(2);
             status.ChangeShower(-1);
             status.ChangeFood(-1);
             status.ChangeStamina(-1);
-        }
-    }
+        }    }
     public void MiniGame()
     {
         if (status.currentStamina > 0)
@@ -49,14 +62,16 @@ public class Activity : MonoBehaviour
             status.ChangeFood(-2);
             status.ChangeStamina(-1);
             status.SaveStatus();
-            StartCoroutine(Transition());
+            StartCoroutine(sceneTransition.TransitionEnd("Minigame Scene"));
         }
     }
     public void Sleep()
     {
+        playerAnimator.SetTrigger("Sleep");
         status.ChangeStamina(2);
         status.ChangeDay(1);
         RandomStatus();
+        audioManager.PlayVoice(audioManager.sleep);
     }
     private void RandomStatus(){
 
@@ -87,11 +102,5 @@ public class Activity : MonoBehaviour
         status.ChangeShower(showerChange);
         status.ChangeFood(foodChange);
         status.ChangeMood(moodChange);
-    }
-    IEnumerator Transition(){
-        SceneUI.SetActive(true);
-        transition.SetTrigger("End");
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Minigame Scene");
     }
 }

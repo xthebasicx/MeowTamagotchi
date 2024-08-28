@@ -11,6 +11,8 @@ public class Status : MonoBehaviour
     public Slider sliderStamina;
     public TextMeshProUGUI textMeshProUGUI;
     public GameObject EvoButton;
+    private Animator animator;
+    private AudioManager audioManager;
     public static bool isButtonPressed = false;
 
     public int maxHealth { get; private set; } = 10;
@@ -32,6 +34,8 @@ public class Status : MonoBehaviour
         LoadStatus();
         SetMaxStatus();
         SetStatus();
+        animator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     void Update()
     {
@@ -116,5 +120,32 @@ public class Status : MonoBehaviour
         Day = PlayerPrefs.GetInt("Day", 1);
         SetStatus();
     }
+    void OnMouseDown()
+    {
+        animator.SetTrigger("Unique");
+        int Cat = PlayerPrefs.GetInt("Cat", 0);
+        int Evo = PlayerPrefs.GetInt("Evo", 0);
+
+        switch (Cat)
+        {
+            case 0:
+                switch (Evo)
+                {
+                    case 0: audioManager.PlaySFX(audioManager.jojocat); ; break;
+                    case 1: audioManager.PlaySFX(audioManager.musclecat); ; break;
+                    case 2: audioManager.PlaySFX(audioManager.oiiacat); ; break;
+                }
+                break;
+            case 1:
+                switch (Evo)
+                {
+                    case 0: audioManager.PlaySFX(audioManager.happycat); ; break;
+                    case 1: audioManager.PlaySFX(audioManager.huhcat); ; break;
+                    case 2: audioManager.PlaySFX(audioManager.sadcat); ; break;
+                }
+                break;
+        }
+    }
+
 
 }
