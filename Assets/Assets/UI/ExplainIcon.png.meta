@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 14fb84406245dc949bc00d86efc78408
+guid: 0d10e88c8bbe0ef4da1887104b61fb8b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Newgamebutton-Sheet_0
+      name: ExplainIcon_0
       rect:
         serializedVersion: 2
-        x: 113
-        y: 181
-        width: 329
-        height: 123
+        x: 0
+        y: 0
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,29 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 421a8d7cd584ad24faa5be5aea3a9508
-      internalID: -1802618948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Newgamebutton-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 629
-        y: 181
-        width: 329
-        height: 116
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02e0d9943fa189449aad89d7145c3337
-      internalID: -1457975097
+      spriteID: 4189f0e1be2b63741a27fd35baaf50e9
+      internalID: -1383167311
       vertices: []
       indices: 
       edges: []
@@ -149,8 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Newgamebutton-Sheet_0: -1802618948
-      Newgamebutton-Sheet_1: -1457975097
+      ExplainIcon_0: -1383167311
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

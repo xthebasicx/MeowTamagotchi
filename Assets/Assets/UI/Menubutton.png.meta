@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c8db9241fe4ff08458d145043059ef59
+guid: c04e1dece2863ce48a47fb1a598ae137
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settingbutton_0
+      name: Menubutton_0
       rect:
         serializedVersion: 2
         x: 113
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1d19f31a23682b4486fc01293ba18d6
-      internalID: -670698540
+      spriteID: 4b657dcfd4a92a74ebc63c83289832eb
+      internalID: -1481198739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Settingbutton_1
+      name: Menubutton_1
       rect:
         serializedVersion: 2
         x: 629
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcb1337ab414e08479e295c7612bfeb2
-      internalID: 1730341983
+      spriteID: 9415b1c5eaabdb14b857566e18606f00
+      internalID: -1704545467
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Settingbutton_0: -670698540
-      Settingbutton_1: 1730341983
+      Menubutton_0: -1481198739
+      Menubutton_1: -1704545467
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

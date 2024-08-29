@@ -131,17 +131,17 @@ public class Status : MonoBehaviour
             case 0:
                 switch (Evo)
                 {
-                    case 0: audioManager.PlaySFX(audioManager.jojocat); ; break;
-                    case 1: audioManager.PlaySFX(audioManager.musclecat); ; break;
-                    case 2: audioManager.PlaySFX(audioManager.oiiacat); ; break;
+                    case 0: audioManager.PlayVoice(audioManager.jojocat); ; break;
+                    case 1: audioManager.PlayVoice(audioManager.musclecat); ; break;
+                    case 2: audioManager.PlayVoice(audioManager.oiiacat); ; break;
                 }
                 break;
             case 1:
                 switch (Evo)
                 {
-                    case 0: audioManager.PlaySFX(audioManager.happycat); ; break;
-                    case 1: audioManager.PlaySFX(audioManager.huhcat); ; break;
-                    case 2: audioManager.PlaySFX(audioManager.sadcat); ; break;
+                    case 0: audioManager.PlayVoice(audioManager.happycat); ; break;
+                    case 1: audioManager.PlayVoice(audioManager.huhcat); ; break;
+                    case 2: audioManager.PlayVoice(audioManager.sadcat); ; break;
                 }
                 break;
         }

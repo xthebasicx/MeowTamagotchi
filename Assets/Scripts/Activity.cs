@@ -7,15 +7,18 @@ public class Activity : MonoBehaviour
     public Status status;
     public SceneTransition sceneTransition;
     private Animator playerAnimator;
+    private Animator FoodAnimator;
     private AudioManager audioManager;
-    public void Start(){
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerAnimator = player.GetComponent<Animator>();
+    public void Start()
+    {
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        FoodAnimator = GameObject.FindGameObjectWithTag("Food").GetComponent<Animator>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     public void Snack()
     {
         playerAnimator.SetTrigger("Eat");
+        FoodAnimator.SetTrigger("Snack");
         status.ChangeFood(1);
         status.ChangeHealth(-1);
         status.ChangeMood(1);
@@ -24,6 +27,7 @@ public class Activity : MonoBehaviour
     public void HealthyFood()
     {
         playerAnimator.SetTrigger("Eat");
+        FoodAnimator.SetTrigger("HealthyFood");
         status.ChangeFood(2);
         status.ChangeHealth(1);
         audioManager.PlayVoice(audioManager.eat);
@@ -33,6 +37,7 @@ public class Activity : MonoBehaviour
         if (status.currentHealth <= 3)
         {
             playerAnimator.SetTrigger("Eat");
+            FoodAnimator.SetTrigger("Medicine");
             status.ChangeHealth(1);
             status.ChangeMood(-1);
             audioManager.PlayVoice(audioManager.eat);
@@ -49,11 +54,12 @@ public class Activity : MonoBehaviour
         if (status.currentStamina > 0)
         {
             playerAnimator.SetTrigger("Exercise");
-            status.ChangeHealth(2);
+            status.ChangeHealth(3);
             status.ChangeShower(-1);
             status.ChangeFood(-1);
             status.ChangeStamina(-1);
-        }    }
+        }
+    }
     public void MiniGame()
     {
         if (status.currentStamina > 0)
@@ -73,7 +79,8 @@ public class Activity : MonoBehaviour
         RandomStatus();
         audioManager.PlayVoice(audioManager.sleep);
     }
-    private void RandomStatus(){
+    private void RandomStatus()
+    {
 
         int healthChange = Random.Range(-1, 1);
         int showerChange = Random.Range(-1, 1);
