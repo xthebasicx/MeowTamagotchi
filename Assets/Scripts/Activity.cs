@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Activity : MonoBehaviour
 {
@@ -17,20 +15,26 @@ public class Activity : MonoBehaviour
     }
     public void Snack()
     {
-        playerAnimator.SetTrigger("Eat");
-        FoodAnimator.SetTrigger("Snack");
-        status.ChangeFood(1);
-        status.ChangeHealth(-1);
-        status.ChangeMood(1);
-        audioManager.PlayVoice(audioManager.eat);
+        if (status.currentFood < status.maxFood)
+        {
+            playerAnimator.SetTrigger("Eat");
+            FoodAnimator.SetTrigger("Snack");
+            status.ChangeFood(1);
+            status.ChangeHealth(-1);
+            status.ChangeMood(1);
+            audioManager.PlayVoice(audioManager.eat);
+        }
     }
     public void HealthyFood()
     {
-        playerAnimator.SetTrigger("Eat");
-        FoodAnimator.SetTrigger("HealthyFood");
-        status.ChangeFood(2);
-        status.ChangeHealth(1);
-        audioManager.PlayVoice(audioManager.eat);
+        if (status.currentFood < status.maxFood)
+        {
+            playerAnimator.SetTrigger("Eat");
+            FoodAnimator.SetTrigger("HealthyFood");
+            status.ChangeFood(2);
+            status.ChangeHealth(1);
+            audioManager.PlayVoice(audioManager.eat);
+        }
     }
     public void Medicine()
     {
@@ -38,7 +42,7 @@ public class Activity : MonoBehaviour
         {
             playerAnimator.SetTrigger("Eat");
             FoodAnimator.SetTrigger("Medicine");
-            status.ChangeHealth(1);
+            status.ChangeHealth(1, true);
             status.ChangeMood(-1);
             audioManager.PlayVoice(audioManager.eat);
         }
@@ -76,8 +80,24 @@ public class Activity : MonoBehaviour
         playerAnimator.SetTrigger("Sleep");
         status.ChangeStamina(2);
         status.ChangeDay(1);
+        ApplyDailyHealthPenalties();
         RandomStatus();
         audioManager.PlayVoice(audioManager.sleep);
+    }
+    private void ApplyDailyHealthPenalties()
+    {
+        if (status.currentMood == 0)
+        {
+            status.ChangeHealth(-1);
+        }
+        if (status.currentFood == 0)
+        {
+            status.ChangeHealth(-1);
+        }
+        if (status.currentShower == 0)
+        {
+            status.ChangeHealth(-1);
+        }
     }
     private void RandomStatus()
     {

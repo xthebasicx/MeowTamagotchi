@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Status : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Status : MonoBehaviour
     public GameObject EvoButton;
     private Animator animator;
     private AudioManager audioManager;
+    public SceneTransition sceneTransition;
     public static bool isButtonPressed = false;
 
     public int maxHealth { get; private set; } = 10;
@@ -29,6 +31,8 @@ public class Status : MonoBehaviour
 
     public int Day { get; private set; } = 1;
 
+    private bool canClick = true;
+
     public void Start()
     {
         LoadStatus();
@@ -37,15 +41,26 @@ public class Status : MonoBehaviour
         animator = GetComponent<Animator>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
+
     void Update()
     {
         Evolution();
     }
 
-    public void ChangeHealth(int amount)
+    public void ChangeHealth(int amount, bool isMedicine = false)
     {
+        if (currentHealth <= 3 && amount > 0 && !isMedicine)
+        {
+            return;
+        }
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         SetStatus();
+        UpdateHealthColor();
+        if (currentHealth == 0)
+        {
+            Die();
+        }
     }
     public void ChangeFood(int amount)
     {
@@ -73,9 +88,15 @@ public class Status : MonoBehaviour
     }
     public void Evolution()
     {
-        if (Day >= 10 && !isButtonPressed)
+        if (Day >= 7 && !isButtonPressed)
         {
-            EvoButton.SetActive(true);
+            if (currentHealth == maxHealth &&
+                currentMood == maxMood &&
+                currentFood == maxFood &&
+                currentShower == maxShower)
+            {
+                EvoButton.SetActive(true);
+            }
         }
     }
     public void CloseButton()
@@ -119,33 +140,61 @@ public class Status : MonoBehaviour
         currentStamina = PlayerPrefs.GetInt("Stamina", 2);
         Day = PlayerPrefs.GetInt("Day", 1);
         SetStatus();
+        UpdateHealthColor();
     }
+
     void OnMouseDown()
     {
-        animator.SetTrigger("Unique");
-        int Cat = PlayerPrefs.GetInt("Cat", 0);
-        int Evo = PlayerPrefs.GetInt("Evo", 0);
-
-        switch (Cat)
+        if (canClick)
         {
-            case 0:
-                switch (Evo)
-                {
-                    case 0: audioManager.PlayVoice(audioManager.jojocat); ; break;
-                    case 1: audioManager.PlayVoice(audioManager.musclecat); ; break;
-                    case 2: audioManager.PlayVoice(audioManager.oiiacat); ; break;
-                }
-                break;
-            case 1:
-                switch (Evo)
-                {
-                    case 0: audioManager.PlayVoice(audioManager.happycat); ; break;
-                    case 1: audioManager.PlayVoice(audioManager.huhcat); ; break;
-                    case 2: audioManager.PlayVoice(audioManager.sadcat); ; break;
-                }
-                break;
+            canClick = false;
+            StartCoroutine(ClickCooldown());
+            animator.SetTrigger("Unique");
+            int Cat = PlayerPrefs.GetInt("Cat", 0);
+            int Evo = PlayerPrefs.GetInt("Evo", 0);
+
+            switch (Cat)
+            {
+                case 0:
+                    switch (Evo)
+                    {
+                        case 0: audioManager.PlayVoice(audioManager.jojocat); break;
+                        case 1: audioManager.PlayVoice(audioManager.musclecat); break;
+                        case 2: audioManager.PlayVoice(audioManager.oiiacat); break;
+                    }
+                    break;
+                case 1:
+                    switch (Evo)
+                    {
+                        case 0: audioManager.PlayVoice(audioManager.happycat); break;
+                        case 1: audioManager.PlayVoice(audioManager.huhcat); break;
+                        case 2: audioManager.PlayVoice(audioManager.sadcat); break;
+                    }
+                    break;
+            }
+        }
+    }
+    private void UpdateHealthColor()
+    {
+        Image fill = sliderHealth.fillRect.GetComponent<Image>();
+
+        if (currentHealth <= 3)
+        {
+            fill.color = Color.magenta;
+        }
+        else
+        {
+            fill.color = Color.white;
         }
     }
 
-
+    private IEnumerator ClickCooldown()
+    {
+        yield return new WaitForSeconds(2f);
+        canClick = true;
+    }
+    private void Die()
+    {
+        StartCoroutine(sceneTransition.TransitionDie("Mainmenu Scene"));
+    }
 }

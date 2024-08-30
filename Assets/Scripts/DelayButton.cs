@@ -11,6 +11,7 @@ public class DelayButton : MonoBehaviour
     {
         myButton = GetComponent<Button>();
         myButton.onClick.AddListener(OnButtonClick);
+        ResetButtonState();
     }
 
     void OnButtonClick()
@@ -22,6 +23,26 @@ public class DelayButton : MonoBehaviour
     IEnumerator EnableButtonAfterDelay()
     {
         yield return new WaitForSeconds(delay);
-        myButton.interactable = true;
+
+        if (gameObject.activeInHierarchy)
+        {
+            ResetButtonState();
+        }
+    }
+
+    void ResetButtonState()
+    {
+        if (myButton != null)
+        {
+            myButton.interactable = true;
+        }
+    }
+    void OnEnable()
+    {
+        ResetButtonState();
+    }
+    void OnDisable()
+    {
+        myButton.interactable = false;
     }
 }
